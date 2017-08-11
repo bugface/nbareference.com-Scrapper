@@ -76,7 +76,13 @@ def get_box(date, team_abbr, away, file):
 	a_tbody = a_div.find("tbody")
 	a_trs = a_tbody.find_all("tr")
 
-	with open(file, "a+", encoding='utf-8', newline='') as f_box:
+	mode = None
+	if not os.path.isfile(file):
+		mode = "w"
+	else:
+		mode = "a+"
+
+	with open(file, mode, encoding='utf-8', newline='') as f_box:
 		writer = csv.writer(f_box)
 		l = []
 		if os.stat(file).st_size == 0:
@@ -189,7 +195,7 @@ def get_team_playoff(season):
 	tbody = soup_team.find("tbody")
 	trs = tbody.find_all('tr')
 
-	with open("team_data_playoff.csv", "a+", encoding='utf-8', newline='') as f_team:
+	with open("team_data_playoff.csv", "w", encoding='utf-8', newline='') as f_team:
 		writer = csv.writer(f_team)
 		#if not Sniffer().has_header(f_team.read()):
 		l = []
@@ -215,12 +221,14 @@ def get_team_playoff(season):
 					date_obj = dt.strptime(extra_date, "%b-%d-%Y")
 					r_date = dt.strftime(date_obj, "%Y%m%d")
 				l.append(each_t.getText())
+
 			game.append((r_date,r_team,a_team))		
 			writer.writerow(l)
 	return game
 
 def playoff():
-	for season in range(2001,2018):
+	for season in range(2017,2018):
+		#print(season)
 		games = get_team_playoff(season)
 		for game in games:
 			get_box(game[0], game[1], game[2], "box_data_playoff.csv")
