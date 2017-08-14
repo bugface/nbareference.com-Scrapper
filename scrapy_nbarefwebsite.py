@@ -155,7 +155,7 @@ def test():
 def regular():
 	#regular season
 	months = ['october', 'november', 'december', 'january', 'february', 'march', 'april']
-	seasons = [x for x in range(2010, 2018)]
+	seasons = range(2010, 2018)
 	for season in seasons:
 		for month in months:
 			# try:
