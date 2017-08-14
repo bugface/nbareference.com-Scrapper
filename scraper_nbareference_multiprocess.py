@@ -29,10 +29,13 @@ team_rel_abbr_old = {'New Orleans/Oklahoma City Hornets': 'NOK', 'New Jersey Net
 def output_player_data(future, file):
     data = future.result()
 
-    mode = "w"
+    if os.path.isfile(file):
+        mode = "a"
+    else:
+        mode = "w"
     lock.acquire()
     try:
-        with open(file, mode, newline="") as f:
+        with open(file, mode, newline="", encoding='utf-8') as f:
             writer = csv.writer(f)
             for each in data:
                 writer.writerow(each)
@@ -43,7 +46,7 @@ def output_player_data(future, file):
 
 
 def scrapy_player_data(game, file):
-    time.sleep(1)
+    #time.sleep(1)
     date, team_abbr, away = game
     url_box_score = "http://www.basketball-reference.com/boxscores/{}0{}.html".format(
         date, team_abbr)
@@ -104,7 +107,7 @@ def scrapy_player_data(game, file):
     return results
 
 def scrapy_regular_team_data(season, month, file):
-    time.sleep(1)
+    #time.sleep(1)
     url_team_score = "http://www.basketball-reference.com/leagues/NBA_{}_games-{}.html".format(season, month)
     print(url_team_score)
 
@@ -140,7 +143,7 @@ def scrapy_regular_team_data(season, month, file):
                     temp = each_t.getText().split(",")
                     if temp[0] == 'Playoffs':
                         data.append(line)
-                        return data, games
+                        return data, games, season
                     temp1 = temp[1].strip().split(' ')
                     #print(temp1)
                     extra_date = "-".join([temp1[0].strip(), temp1[1].strip(), temp[2].strip()])
@@ -167,7 +170,7 @@ def output_regular_team_data(future, file):
 
         lock.acquire()
         try:
-            with open(file, mode, newline="") as f:
+            with open(file, mode, newline="", encoding='utf-8') as f:
                 writer = csv.writer(f)
                 for each in data:
                     writer.writerow(each)
@@ -179,6 +182,7 @@ def output_regular_team_data(future, file):
         futures_sub_ = []
         regular_game_outputfile = "data/regularseason_player_data_{}.csv".format(
                     season)
+
         for game in games:
             with ThreadPoolExecutor(max_workers=thread_num) as executor:
                 future_sub_ = executor.submit(
@@ -223,7 +227,7 @@ def output_playoff_team_data(future, file):
     mode = "w"
     lock.acquire()
     try:
-        with open(file, mode, newline="") as f:
+        with open(file, mode, newline="", encoding='utf-8') as f:
             writer = csv.writer(f)
             for each in data:
                 writer.writerow(each)
@@ -246,7 +250,7 @@ def output_playoff_team_data(future, file):
 
 
 def scrapy_playoff_team_data(season, file):
-    time.sleep(1)
+    #time.sleep(1)
     url_team_score = "http://www.basketball-reference.com/playoffs/NBA_{}_games.html".format(
         season)
     print(url_team_score)

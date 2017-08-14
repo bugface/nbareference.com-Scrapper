@@ -768,3 +768,150 @@ Traceback (most recent call last):
   File "scraper_nbareference_multiprocess.py", line 151, in scrapy_regular_team_data
     raise Exception(e)
 Exception: [WinError 2] The system cannot find the file specified: 'data/regular_season_team_data_2013.csv'
+2017-08-13 21:47:20  concurrent.futures ERROR      exception calling callback for <Future at 0x1d8f0be6048 state=finished raised ConnectionError>
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\connection.py", line 141, in _new_conn
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\util\connection.py", line 83, in create_connection
+    raise err
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\connectionpool.py", line 345, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\connectionpool.py", line 844, in _validate_conn
+    conn.connect()
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\connection.py", line 284, in connect
+    conn = self._new_conn()
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\connection.py", line 150, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+requests.packages.urllib3.exceptions.NewConnectionError: <requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x000001D8F2866B38>: Failed to establish a new connection: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\adapters.py", line 423, in send
+    timeout=timeout
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\connectionpool.py", line 649, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\packages\urllib3\util\retry.py", line 376, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+requests.packages.urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.basketball-reference.com', port=443): Max retries exceeded with url: /boxscores/201012120LAC.html (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x000001D8F2866B38>: Failed to establish a new connection: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 297, in _invoke_callbacks
+    callback(self)
+  File "scraper_nbareference_multiprocess.py", line 30, in output_player_data
+    data = future.result()
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 398, in result
+    return self.__get_result()
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 357, in __get_result
+    raise self._exception
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\thread.py", line 55, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "scraper_nbareference_multiprocess.py", line 51, in scrapy_player_data
+    rep_box = req.get(url_box_score, headers=user_agent)
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\api.py", line 70, in get
+    return request('get', url, params=params, **kwargs)
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\api.py", line 56, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\sessions.py", line 488, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\sessions.py", line 630, in send
+    history = [resp for resp in gen] if allow_redirects else []
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\sessions.py", line 630, in <listcomp>
+    history = [resp for resp in gen] if allow_redirects else []
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\sessions.py", line 190, in resolve_redirects
+    **adapter_kwargs
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\sessions.py", line 609, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\site-packages\requests\adapters.py", line 487, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.basketball-reference.com', port=443): Max retries exceeded with url: /boxscores/201012120LAC.html (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x000001D8F2866B38>: Failed to establish a new connection: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond',))
+2017-08-13 21:58:06  concurrent.futures ERROR      exception calling callback for <Future at 0x1d8efb24630 state=finished returned tuple>
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 297, in _invoke_callbacks
+    callback(self)
+  File "scraper_nbareference_multiprocess.py", line 160, in output_regular_team_data
+    data, games, season = future.result()
+ValueError: not enough values to unpack (expected 3, got 2)
+2017-08-13 21:58:10  concurrent.futures ERROR      exception calling callback for <Future at 0x1d8f1257080 state=finished raised Exception>
+Traceback (most recent call last):
+  File "scraper_nbareference_multiprocess.py", line 122, in scrapy_regular_team_data
+    trs = tbody.find_all('tr')
+AttributeError: 'NoneType' object has no attribute 'find_all'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 297, in _invoke_callbacks
+    callback(self)
+  File "scraper_nbareference_multiprocess.py", line 160, in output_regular_team_data
+    data, games, season = future.result()
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 398, in result
+    return self.__get_result()
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 357, in __get_result
+    raise self._exception
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\thread.py", line 55, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "scraper_nbareference_multiprocess.py", line 153, in scrapy_regular_team_data
+    raise Exception(e)
+Exception: 'NoneType' object has no attribute 'find_all'
+2017-08-13 21:58:14  concurrent.futures ERROR      exception calling callback for <Future at 0x1d8f1257cf8 state=finished raised Exception>
+Traceback (most recent call last):
+  File "scraper_nbareference_multiprocess.py", line 122, in scrapy_regular_team_data
+    trs = tbody.find_all('tr')
+AttributeError: 'NoneType' object has no attribute 'find_all'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 297, in _invoke_callbacks
+    callback(self)
+  File "scraper_nbareference_multiprocess.py", line 160, in output_regular_team_data
+    data, games, season = future.result()
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 398, in result
+    return self.__get_result()
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 357, in __get_result
+    raise self._exception
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\thread.py", line 55, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "scraper_nbareference_multiprocess.py", line 153, in scrapy_regular_team_data
+    raise Exception(e)
+Exception: 'NoneType' object has no attribute 'find_all'
+2017-08-13 22:12:33  concurrent.futures ERROR      exception calling callback for <Future at 0x1d8f2f45da0 state=finished returned tuple>
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 297, in _invoke_callbacks
+    callback(self)
+  File "scraper_nbareference_multiprocess.py", line 160, in output_regular_team_data
+    data, games, season = future.result()
+ValueError: not enough values to unpack (expected 3, got 2)
+2017-08-13 22:28:29  concurrent.futures ERROR      exception calling callback for <Future at 0x1d8f2c99860 state=finished returned tuple>
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 297, in _invoke_callbacks
+    callback(self)
+  File "scraper_nbareference_multiprocess.py", line 160, in output_regular_team_data
+    data, games, season = future.result()
+ValueError: not enough values to unpack (expected 3, got 2)
+2017-08-14 01:19:26  concurrent.futures ERROR      exception calling callback for <Future at 0x256e2f9bda0 state=finished returned tuple>
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 297, in _invoke_callbacks
+    callback(self)
+  File "scraper_nbareference_multiprocess.py", line 233, in output_playoff_team_data
+    writer.writerow(each)
+UnicodeEncodeError: 'gbk' codec can't encode character '\xa0' in position 53: illegal multibyte sequence
+2017-08-14 01:19:27  concurrent.futures ERROR      exception calling callback for <Future at 0x256e2f9bef0 state=finished returned tuple>
+Traceback (most recent call last):
+  File "C:\Users\xiyang\AppData\Local\Programs\Python\Python35\lib\concurrent\futures\_base.py", line 297, in _invoke_callbacks
+    callback(self)
+  File "scraper_nbareference_multiprocess.py", line 233, in output_playoff_team_data
+    writer.writerow(each)
+UnicodeEncodeError: 'gbk' codec can't encode character '\xa0' in position 53: illegal multibyte sequence
